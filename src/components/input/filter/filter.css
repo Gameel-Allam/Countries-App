@@ -54,7 +54,8 @@
 .dropdown {
     position: absolute;
     /* display: none; */
-    margin-top: 2px;
+    margin-top: 225px;
+    margin-left: -10px;
     background-color: var(--color-white);
     border-radius: 5px;
     min-width: 100%;

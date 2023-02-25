@@ -1,27 +1,29 @@
 import "./country.css";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllCountries } from "../../features/countries/countriesActions"
+import { getAllCountries, getRegionCountries } from "../../features/countries/countriesActions";
+import { reset } from "../../features/countries/countriesSlice";
 import { Link } from "react-router-dom";
 
 
 const Country = () => {
     const dispatch = useDispatch();
-    const { loading, error, succes, countriesData, errorMessage } = useSelector(state => state.countries);
-    const [countries, setCountries] = useState([]);
+    const { loading, error, succes, countriesData, errorMessage, region, searchTerm } = useSelector(state => state.countries);
+    const errMessage = useMemo(() => errorMessage, [errorMessage])
 
     useEffect(() => {
         dispatch(getAllCountries());
-        if (succes) {
-            setCountries(countriesData);
-            console.log(countriesData);
+        if (region) {
+            console.log(region);
+            dispatch(getRegionCountries(region));
         }
         if (error)
-            console.log(errorMessage);
+            console.log(errMessage);
+        return () => dispatch(reset);
+    }, [dispatch, error, succes, region, errMessage])
 
-    }, [dispatch, error, succes])
-
-    const allCountries = countries.length > 0 ? countries.map((item, index) => (
+    const data = countriesData.filter((item) => item.name.common.includes(searchTerm))
+    const allCountries = data.length > 0 ? data.map((item, index) => (
         <Link className="country-card" key={index} to={`/${item.cioc}`}>
             <img src={item.flags.png} alt={item.flags.alt} className="country-image" />
             <div className="country-content">

@@ -1,20 +1,23 @@
 import "./country-detail.css";
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getCountryData } from "../../features/countries/countriesActions"
+import { getCountryData } from "../../features/countries/countriesActions";
+import { reset } from "../../features/countries/countriesSlice";
 import { Link, useParams } from "react-router-dom";
 
 
 const CountryDetail = () => {
     const dispatch = useDispatch();
     const { code } = useParams();
-    const { error, errorMessage, countryData } = useSelector(state => state.countries)
+    const { error, errorMessage, countryData } = useSelector(state => state.countries);
+    const errMessage = useMemo(() => errorMessage, [errorMessage])
     useEffect(() => {
         if (code)
             dispatch(getCountryData(code.toLowerCase()))
         if (error)
-            console.log(errorMessage);
-    }, [code, dispatch, error])
+        console.log(errMessage);
+        return () => dispatch(reset())
+    }, [code, dispatch, error, errMessage])
 
     console.log(countryData);
 
@@ -64,7 +67,7 @@ const CountryDetail = () => {
             <div className="border">
                 <p>Border Countries: </p>
                 {
-                    Object.values(countryData[0].borders).map(item => <Link className="border-name" to={`/${item}`}>{item}</Link>)}
+                    Object.values(countryData[0].borders).map((item,index) => <Link key={index} className="border-name" to={`/${item}`}>{item}</Link>)}
             </div>
         </div>) : "No Data available for this country";
 

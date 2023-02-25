@@ -3,10 +3,15 @@
     height: 100%;
     margin-top: 5rem;
     padding: 0 5rem;
-
+    background-color: var(--color-white);
     display: flex;
     justify-content: space-evenly;
     flex-wrap: wrap;
+}
+
+.main-container.dark .country-container {
+    background-color: var(--dark-mode-bg);
+
 }
 
 .country-card {

@@ -1,6 +1,13 @@
 import "./search.css";
+import { setSearchTerm } from "../../../features/countries/countriesSlice"
+import { useDispatch, useSelector } from "react-redux";
 
 const Search = () => {
+    const { searchTerm } = useSelector(state => state.countries)
+    const dispatch = useDispatch();
+    const handleSearchChange = (e) => {
+        dispatch(setSearchTerm(e.target.value.toLowerCase()));
+    }
     return (
         <section className="search-container">
             <div className="search-icon">
@@ -11,7 +18,8 @@ const Search = () => {
                 type="text"
                 placeholder="Search for a country"
                 className="search-input"
-                value=""
+                value={searchTerm}
+                onChange={handleSearchChange}
             />
         </section>
     );
