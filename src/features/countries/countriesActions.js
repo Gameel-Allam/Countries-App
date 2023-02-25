@@ -11,3 +11,13 @@ export const getAllCountries = createAsyncThunk("countries/getAllCountries", asy
         return thunkAPI.rejectWithValue(message);
     }
 })
+
+export const getCountryData = createAsyncThunk("counties/getCountryData", async (code, thunkAPI) => {
+    try {
+        const response = await axios.get(`https://restcountries.com/v3.1/alpha/${code}`);
+        return response.data;
+    } catch (error) {
+        const message = error.response?.data || error.message;
+        return thunkAPI.rejectWithValue(message);
+    }
+})

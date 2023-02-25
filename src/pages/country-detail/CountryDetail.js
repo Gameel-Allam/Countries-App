@@ -1,58 +1,83 @@
 import "./country-detail.css";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getCountryData } from "../../features/countries/countriesActions"
+import { Link, useParams } from "react-router-dom";
+
 
 const CountryDetail = () => {
+    const dispatch = useDispatch();
+    const { code } = useParams();
+    const { error, errorMessage, countryData } = useSelector(state => state.countries)
+    useEffect(() => {
+        if (code)
+            dispatch(getCountryData(code.toLowerCase()))
+        if (error)
+            console.log(errorMessage);
+    }, [code, dispatch, error])
+
+    console.log(countryData);
+
+    const countryInfo = countryData.length > 0 ? (
+        <div className="country-detail-right">
+            <h1>{countryData[0].name.common}</h1>
+            <div className="details">
+                <div className="detail-left">
+                    <p>
+                        Offcial Name: <span>{countryData[0].name.official}</span>
+                    </p>
+                    <p>
+                        Population: <span>{countryData[0].population}</span>
+                    </p>
+                    <p>
+                        Region: <span>{countryData[0].region}</span>
+                    </p>
+
+                    <p>
+                        Sub Region: <span>{countryData[0].subregion}</span>
+                    </p>
+                    <p>
+                        Capital: <span>{countryData[0].capital}</span>
+                    </p>
+                </div>
+
+                <div className="detail-right">
+                    <p>
+                        Top Level Domain: <span>{countryData[0].tld[0]}</span>
+                    </p>
+                    <p>
+                        Currencies:<span>{
+                            Object.values(countryData[0].currencies).map(item => item.name).join(", ")
+                        }
+                        </span>
+                    </p>
+
+                    <p>
+                        Languages:  <span>{
+                            Object.values(countryData[0].languages).map(item => item).join(", ")
+                        }
+                        </span>
+                    </p>
+                </div>
+            </div>
+
+            <div className="border">
+                <p>Border Countries: </p>
+                {
+                    Object.values(countryData[0].borders).map(item => <Link className="border-name" to={`/${item}`}>{item}</Link>)}
+            </div>
+        </div>) : "No Data available for this country";
+
     return (
         <section className="country-detail-container">
-            <div className="back-button" to="/">
+            <Link className="back-button" to="/">
                 <i className="fa-solid fa-arrow-left"></i> Back
-            </div>
+            </Link>
 
             <div className="country-detail-content">
                 <>
-                    <img src="#" alt="name" className="country-detail-image" />
-
-                    <div className="country-detail-right">
-                        {/* <h1></h1> */}
-                        <div className="details">
-                            <div className="detail-left">
-                                <p>
-                                    Offcial Name: <span>{ }</span>
-                                </p>
-                                <p>
-                                    Population: <span>{ }</span>
-                                </p>
-                                <p>
-                                    Region: <span>{ }</span>
-                                </p>
-
-                                <p>
-                                    Sub Region: <span>{ }</span>
-                                </p>
-                                <p>
-                                    Capital: <span>{ }</span>
-                                </p>
-                            </div>
-
-                            <div className="detail-right">
-                                <p>
-                                    Top Level Domain: <span>{ }</span>
-                                </p>
-                                <p>
-                                    Currencies:
-                                    <span></span>
-                                </p>
-
-                                <p>
-                                    Languages:
-                                    <span></span>
-                                </p>
-                            </div>
-                        </div>
-
-                        <div className="border">
-                            <p>Border Countries:</p>
-                        </div>
-                    </div>
+                    <img src={countryData[0]?.flags.png} alt={countryData[0]?.flags.alt} className="country-detail-image" />
+                    {countryInfo}
                 </>
             </div>
         </section>

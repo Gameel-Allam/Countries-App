@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getAllCountries } from "./countriesActions"
+import { getAllCountries, getCountryData } from "./countriesActions"
 
 
 const initialState = {
@@ -34,6 +34,20 @@ const countriesSlice = createSlice({
                 state.error = true;
                 state.errorMessage = action.payload;
                 state.countriesData = [];
+            })
+            .addCase(getCountryData.pending, (state) => {
+                state.loading = true;
+            })
+            .addCase(getCountryData.fulfilled, (state, action) => {
+                state.loading = false;
+                state.countryData = action.payload;
+                state.succes = true;
+            })
+            .addCase(getCountryData.rejected, (state, action) => {
+                state.succes = false;
+                state.countryData = [];
+                state.error = true;
+                state.errorMessage = action.payload;
             })
     }
 })

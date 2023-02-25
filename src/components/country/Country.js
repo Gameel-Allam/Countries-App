@@ -2,6 +2,7 @@ import "./country.css";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllCountries } from "../../features/countries/countriesActions"
+import { Link } from "react-router-dom";
 
 
 const Country = () => {
@@ -21,7 +22,7 @@ const Country = () => {
     }, [dispatch, error, succes])
 
     const allCountries = countries.length > 0 ? countries.map((item, index) => (
-        <div className="country-card" key={index}>
+        <Link className="country-card" key={index} to={`/${item.cioc}`}>
             <img src={item.flags.png} alt={item.flags.alt} className="country-image" />
             <div className="country-content">
                 <h3>{item.name.common}</h3>
@@ -35,7 +36,7 @@ const Country = () => {
                     Capital: <span>{item.capital}</span>
                 </p>
             </div>
-        </div>
+        </Link>
     )) : "";
     return (
         <section className="country-container">
