@@ -13,10 +13,8 @@ const Country = () => {
 
     useEffect(() => {
         dispatch(getAllCountries());
-        if (region) {
-            console.log(region);
+        if (region)
             dispatch(getRegionCountries(region));
-        }
         if (error)
             console.log(errMessage);
         return () => dispatch(reset);

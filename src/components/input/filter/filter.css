@@ -6,6 +6,19 @@
     position: relative;
 }
 
+@media (max-width: 768px) {
+    .filter-container {
+        width: 35%;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+    .filter-container {
+        width: 30%;
+    }
+}
+
+
 .filter {
     background-color: var(--color-white);
 

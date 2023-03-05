@@ -19,8 +19,6 @@ const CountryDetail = () => {
         return () => dispatch(reset())
     }, [code, dispatch, error, errMessage])
 
-    console.log(countryData);
-
     const countryInfo = countryData.length > 0 ? (
         <div className="country-detail-right">
             <h1>{countryData[0].name.common}</h1>

@@ -7,6 +7,18 @@
     border-radius: 2rem;
 }
 
+@media (max-width: 768px) {
+    .search-container {
+        width: 45%;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+    .search-container {
+        width: 40%;
+    }
+}
+
 .main-container.dark .search-container {
     background-color: var(--dark-blue-elements);
 }
