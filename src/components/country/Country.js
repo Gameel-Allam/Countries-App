@@ -19,10 +19,9 @@ const Country = () => {
             console.log(errMessage);
         return () => dispatch(reset);
     }, [dispatch, error, succes, region, errMessage])
-
     const data = countriesData.filter((item) => item.name.common.includes(searchTerm))
     const allCountries = data.length > 0 ? data.map((item, index) => (
-        <Link className="country-card" key={index} to={`/${item.cioc}`}>
+        <Link className="country-card" key={index} to={`/${item.cioc || ''}`}>
             <img src={item.flags.png} alt={item.flags.alt} className="country-image" />
             <div className="country-content">
                 <h3>{item.name.common}</h3>

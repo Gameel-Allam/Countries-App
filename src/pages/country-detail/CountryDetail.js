@@ -15,9 +15,10 @@ const CountryDetail = () => {
         if (code)
             dispatch(getCountryData(code.toLowerCase()))
         if (error)
-        console.log(errMessage);
+            console.log(errMessage);
         return () => dispatch(reset())
-    }, [code, dispatch, error, errMessage])
+    }, [code, dispatch, error])
+    console.log(countryData, countryData.length);
 
     const countryInfo = countryData.length > 0 ? (
         <div className="country-detail-right">
@@ -62,11 +63,11 @@ const CountryDetail = () => {
                 </div>
             </div>
 
-            <div className="border">
+            {/* <div className="border">
                 <p>Border Countries: </p>
-                {
-                    Object.values(countryData[0].borders).map((item,index) => <Link key={index} className="border-name" to={`/${item}`}>{item}</Link>)}
-            </div>
+                {console.log(countryData[0]?.borders, countryData[0].borders,countryData[0])}
+                {Object.values(countryData[0]?.borders || {})?.map((item, index) => <Link key={index} className="border-name" to={`/${item}`}>{item}</Link>)}
+            </div> */}
         </div>) : "No Data available for this country";
 
     return (
