@@ -3,7 +3,7 @@
     height: 100%;
     margin-top: 5rem;
     padding: 0 5rem;
-    background-color: var(--color-white);
+    background-color: #fafafa;
     display: flex;
     justify-content: space-evenly;
     flex-wrap: wrap;

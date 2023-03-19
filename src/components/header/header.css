@@ -7,6 +7,15 @@
     box-shadow: 5px 5px 5px #eae3e3;
 }
 
+@media (max-width: 767px) {
+    .header {
+        padding:  2rem ;
+    }
+    .header h1{
+        font-size: 20px;
+    }
+}
+
 .main-container.dark .header {
     background-color: var(--dark-blue-elements);
     box-shadow: 5px 5px 5px #0b0b0b;

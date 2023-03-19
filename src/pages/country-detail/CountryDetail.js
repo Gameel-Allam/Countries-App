@@ -17,7 +17,7 @@ const CountryDetail = () => {
         if (error)
             console.log(errMessage);
         return () => dispatch(reset())
-    }, [code, dispatch, error])
+    }, [code, dispatch, error, errMessage])
     console.log(countryData, countryData.length);
 
     const countryInfo = countryData.length > 0 ? (
