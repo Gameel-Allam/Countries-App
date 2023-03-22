@@ -2,7 +2,7 @@
 
 A simple countries app that integrating with the REST Countries API to pull country data and display using design from FrontEnd Mentor.
 
-<p align="center"><img width="600" height="400" align="center" src='./public/assets/screenShots/mockup.png'/></p>
+<p align="center"><img width="700" height="450" align="center" src='./public/assets/screenShots/mokup.png'/></p>
 
 ### Your users should be able to:
 
